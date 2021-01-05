@@ -1,0 +1,47 @@
+@using RomanianFinancialTimes.Models
+@model RomanianFinancialTimes.Models.User
+
+@{
+    ViewBag.Content = "content";
+    Layout = "_Layout";
+}
+
+<h2>Add new comment</h2>
+
+<a href="/comments/create" class="btn btn-success">Creare comment</a>
+
+<br />
+
+@{
+    var commentsList = ViewData["comments"] as List<Comment>;
+
+    foreach (var comment in commentsList)
+    {
+        <div class="col-md-4 col-lg-4 col-xs-6 col-sm-4">
+            
+            @Html.Label("Title", "Title:")
+            <p>@comment.Content</p>
+
+            <br />
+
+            @using (Html.BeginForm(actionName: "Details",
+                controllerName: "comments",
+                method: FormMethod.Get,
+                routeValues: new { id = comment.Id }))
+            {
+                <button class="btn btn-info">Detalii</button>
+            }
+
+            <br />
+
+            <a href="/comments/edit/@comment.Id" class="btn btn-warning">Editare</a>
+
+            <br />
+            <br/>
+
+            <a href="/comments/delete/@comment.Id" class="btn btn-danger">Sterge</a>
+
+        </div>
+
+    }
+}

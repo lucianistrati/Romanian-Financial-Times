@@ -1,0 +1,11 @@
+@model RomanianFinancialTimes.Models.Comment
+
+@{
+    ViewBag.Content = "content";
+    Layout = "_Layout";
+}
+
+<h2>Details comment</h2>
+
+@Html.Label("Content", "Content:")
+<p>@Model.Content</p>

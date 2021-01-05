@@ -1,0 +1,48 @@
+@using RomanianFinancialTimes.Models
+@model RomanianFinancialTimes.Models.Article
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Add new article</h2>
+
+<a href="/articles/create" class="btn btn-success">Creare Article</a>
+
+<br />
+
+@{
+    var articlesList = ViewData["articles"] as List<Article>;
+
+    foreach (var article in articlesList)
+    {
+        <div class="col-md-4 col-lg-4 col-xs-6 col-sm-4">
+            
+            @Html.Label("Title", "Title:")
+            <p>@article.Title</p>
+
+            <br />
+
+            @using (Html.BeginForm(actionName: "Details",
+                controllerName: "articles",
+                method: FormMethod.Get,
+                routeValues: new { id = article.Id }))
+            {
+                <button class="btn btn-info">Detalii</button>
+
+            }
+
+            <br />
+
+            <a href="/articles/edit/@article.Id" class="btn btn-warning">Editare</a>
+
+            <br />
+            <br/>
+
+            <a href="/articles/delete/@article.Id" class="btn btn-danger">Sterge</a>
+
+        </div>
+
+    }
+}

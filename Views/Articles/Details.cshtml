@@ -1,0 +1,12 @@
+@model RomanianFinancialTimes.Models.Article
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Details article</h2>
+
+@Html.Label("Title", "Title:")
+<p>@Model.Title</p>
+

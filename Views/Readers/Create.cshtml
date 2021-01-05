@@ -1,0 +1,47 @@
+@using RomanianFinancialTimes.Models
+@model RomanianFinancialTimes.Models.Reader
+
+@{
+    ViewBag.Content = "content";
+    Layout = "_Layout";
+}
+
+<h2>Add new reader</h2>
+
+<a href="/readers/create" class="btn btn-success">Creare reader</a>
+
+<br />
+
+@{
+    var readersList = ViewData["readers"] as List<Reader>;
+
+    foreach (var reader in readersList)
+    {
+        <div class="col-md-4 col-lg-4 col-xs-6 col-sm-4">
+            
+            @Html.Label("Title", "Title:")
+            <p>@reader.LastName</p>
+
+            <br />
+
+            @using (Html.BeginForm(actionName: "Details",
+                controllerName: "readers",
+                method: FormMethod.Get,
+                routeValues: new { id = reader.Id }))
+            {
+                <button class="btn btn-info">Detalii</button>
+            }
+
+            <br />
+
+            <a href="/readers/edit/@reader.Id" class="btn btn-warning">Editare</a>
+
+            <br />
+            <br/>
+
+            <a href="/readers/delete/@reader.Id" class="btn btn-danger">Sterge</a>
+
+        </div>
+
+    }
+}

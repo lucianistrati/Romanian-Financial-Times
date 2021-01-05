@@ -1,0 +1,43 @@
+@model RomanianFinancialTimes.Models.User
+@using RomanianFinancialTimes.Models;
+@{
+    ViewBag.Content = "content";
+    Layout = "_Layout";
+}
+
+<h2>Users Top</h2>
+
+
+
+@{
+    var usersList = ViewData["users"] as List<User>;
+
+    foreach (var user in usersList)
+    {
+        <div class="col-md-4 col-lg-4 col-xs-6 col-sm-4">
+            
+            @Html.Label("Content", "Content:")
+            <p>@user.LastName</p>
+
+            <br />
+
+            @using (Html.BeginForm(actionName: "Details",
+                controllerName: "users",
+                method: FormMethod.Get,
+                routeValues: new { id = user.Id }))
+            {
+                <button class="btn btn-info">Details</button>
+            }
+
+            <br />
+
+            <a href="/users/edit/@user.Id" class="btn btn-warning">Edit</a>
+
+            <br />
+            <br/>
+
+            <a href="/users/delete/@user.Id" class="btn btn-danger">Delete</a>
+
+        </div>
+    }
+}

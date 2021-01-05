@@ -1,0 +1,47 @@
+@using RomanianFinancialTimes.Models
+@model RomanianFinancialTimes.Models.Writer
+@{
+    Layout = null;
+}
+
+<h2>Writers Top</h2>
+
+
+@{
+    var writersList = ViewData["writers"] as List<Writer>;
+
+    foreach (var writer in writersList)
+    {
+        <div class="col-md-4 col-lg-4 col-xs-6 col-sm-4">
+            
+            @Html.Label("First Name","First Name:")
+            <P>@writer.FirstName</p>
+
+            <br />
+            
+            @Html.Label("Last Name", "Last Name:")
+            <p>@writer.LastName</p>
+
+            <br />
+
+            @using (Html.BeginForm(actionName: "Details",
+                controllerName: "writers",
+                method: FormMethod.Get,
+                routeValues: new { id = writer.Id }))
+            {
+                <button class="btn btn-info">Details</button>
+
+            }
+
+            <br />
+
+            <a href="/writers/edit/@writer.Id" class="btn btn-warning">Editare</a>
+
+            <br />
+            <br/>
+
+            <a href="/writers/delete/@writer.Id" class="btn btn-danger">Sterge</a>
+
+        </div>
+    }
+}

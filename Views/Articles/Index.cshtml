@@ -1,0 +1,53 @@
+@model RomanianFinancialTimes.Models.Article
+@using RomanianFinancialTimes.Models;
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Articles Top</h2>
+
+
+
+@{
+    var articlesList = ViewData["articles"] as List<Article>;
+
+    foreach (var article in articlesList)
+    {
+        <div class="col-md-4 col-lg-4 col-xs-6 col-sm-4">
+            
+            @Html.Label("Title", "Title:")
+            <p>@article.Title</p>
+
+            <br />
+
+            @Html.Label("Writer", "Writer:")
+            <p>@article.WriterId</p>
+
+            <br />
+
+            @using (Html.BeginForm(actionName: "Details",
+            controllerName: "articles",
+            method: FormMethod.Get,
+            routeValues: new { id = article.Id }))
+            {
+                <button class="btn btn-info">Details</button>
+            }
+
+            <br />
+
+            <a href="/articles/edit/@article.Id" class="btn btn-warning">Edit</a>
+
+            <br />
+            <br/>
+
+            <a href="/articles/delete/@article.Id" class="btn btn-danger">Delete</a>
+
+        </div>
+
+
+
+
+    }
+}
+

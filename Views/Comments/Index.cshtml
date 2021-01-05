@@ -1,0 +1,44 @@
+@model RomanianFinancialTimes.Models.Comment
+@using RomanianFinancialTimes.Models;
+@{
+    ViewBag.Content = "content";
+    Layout = "_Layout";
+}
+
+<h2>Comments Top</h2>
+
+
+
+@{
+    var commentsList = ViewData["comments"] as List<Comment>;
+
+    foreach (var comment in commentsList)
+    {
+        <div class="col-md-4 col-lg-4 col-xs-6 col-sm-4">
+            
+            @Html.Label("Content", "Content:")
+            <p>@comment.Content</p>
+
+            <br />
+
+            @using (Html.BeginForm(actionName: "Details",
+                controllerName: "comments",
+                method: FormMethod.Get,
+                routeValues: new { id = comment.Id }))
+            {
+    <button class="btn btn-info">Details</button>
+            }
+
+            <br />
+
+            <a href="/comments/edit/@comment.Id" class="btn btn-warning">Edit</a>
+
+            <br />
+            <br/>
+
+            <a href="/comments/delete/@comment.Id" class="btn btn-danger">Delete</a>
+
+        </div>
+            }
+        }
+
